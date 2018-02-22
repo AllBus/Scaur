@@ -5,7 +5,7 @@ package com.kos.scaur.common
   */
 object ImplOps {
 
-	implicit class StringOps(val self: String) extends AnyVal {
+	implicit final class StringOps(val self: String) extends AnyVal {
 		def splitAll(separator: Char): Array[String] = {
 			val ab = Array.newBuilder[String]
 
@@ -23,6 +23,11 @@ object ImplOps {
 
 			ab.result()
 		}
+	}
+
+	implicit final class NullOpsAssoc[T](private val self: T) extends AnyVal {
+		@inline def ??(nullElement: ⇒ T): T = if (self==null) nullElement else self
+		@inline def ?>(nullElement: ⇒ Unit): Unit = if (self!=null) nullElement
 	}
 
 }
