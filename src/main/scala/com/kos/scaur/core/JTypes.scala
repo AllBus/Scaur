@@ -23,7 +23,7 @@ object JTypes {
 	type JMap[T, K] = java.util.Map[T, K]
 
 
-	implicit final class JCollectionImplicit[T](val collection: JCollection[T]) extends AnyRef{
+	implicit final class JCollectionImplicit[T](val collection: JCollection[T]) extends AnyVal {
 
 		@inline
 		def  map[S](f: T => S):JList[S]={
@@ -95,7 +95,7 @@ object JTypes {
 
 	}
 
-	implicit final class JListImplicit[T](val collection: JList[T]) extends AnyRef{
+	implicit final class JListImplicit[T](val collection: JList[T]) extends AnyVal{
 		@inline
 		def apply(index: Int) : T = collection.get(index)
 
@@ -106,7 +106,7 @@ object JTypes {
 		def -=(element:T) = collection.remove(element)
 	}
 
-	implicit final class JMapImplicit[K,T](val collection: JMap[K,T]) extends AnyRef{
+	implicit final class JMapImplicit[K,T](val collection: JMap[K,T]) extends AnyVal{
 
 		@inline
 		def map[S](f: (K,T) => S):JList[S]={
@@ -145,7 +145,7 @@ object JTypes {
 
 	}
 
-	implicit final class Allimplicit[A](val obj:A) extends AnyRef{
+	implicit final class Allimplicit[A](val obj:A) extends AnyVal{
 
 		@inline
 		def as[B: ClassTag](f : B => Unit): Unit ={
