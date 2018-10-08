@@ -19,15 +19,43 @@ object ImplOps {
 				}
 				i += 1
 			}
-			ab+=self.substring(pred,le)
+			ab += self.substring(pred, le)
 
 			ab.result()
 		}
 	}
 
 	implicit final class NullOpsAssoc[T](private val self: T) extends AnyVal {
-		@inline def ??(nullElement: ⇒ T): T = if (self==null) nullElement else self
-		@inline def ?>(nullElement: ⇒ Unit): Unit = if (self!=null) nullElement
+		@inline def ??(nullElement: ⇒ T): T = if (self == null) nullElement else self
+
+		@inline def ?>(nullElement: ⇒ Unit): Unit = if (self != null) nullElement
+
+		/**
+		  * pipe
+		  * @param f
+		  * @tparam U
+		  * @return
+		  */
+		@`inline` def pipe[U] (f: T => U) = f(self)
+
+		/**
+		  * tap
+		  * @param f
+		  * @tparam U
+		  * @return
+		  */
+		@`inline` def tap[U](f: T => U): T = {f(self); self}
+
+		@`inline` def #!(str: String = ""): T = {println(str + self); self}
+	}
+
+	@`inline` def using[A<:AutoCloseable,T](x : A)(body: A ⇒ T): T ={
+		try{
+			body(x)
+		}finally{
+			if (x!=null)
+				x.close()
+		}
 	}
 
 }

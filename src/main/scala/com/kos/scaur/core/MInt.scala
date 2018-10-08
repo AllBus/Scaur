@@ -2,15 +2,33 @@ package com.kos.scaur.core
 
 /**
   * Mutable int
+  *
   * @param value value
   */
-class MInt(var value:Int){
-	def +=(v:Int):Unit = value+=v
-	def ++ = value+=1
-	def -=(v:Int):Unit = value-=v
-	def -- = value-=1
+class MInt(var value: Int) {
+	def +=(v: Int): Unit = value += v
+
+	def ++ = value += 1
+
+	def -=(v: Int): Unit = value -= v
+
+	def -- = value -= 1
+
 	def apply() = value
-	def apply(v:Int) = value = v
+
+	def apply(v: Int) = value = v
 
 	override def toString = value.toString
+
+
+	def >(other: MInt): Boolean = this.value > other.value
+
+	def >=(other: MInt): Boolean = this.value >= other.value
+
+	def ==(other: MInt): Boolean = this.value == other.value
+
+	def <(other: MInt): Boolean = this.value < other.value
+
+	def <=(other: MInt): Boolean = this.value <= other.value
+
 }
